@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bikeshare Data</title>
+</head>
+<body>
+    <h1>Data for {{ city }} ({{ month }} - {{ day }})</h1>
+    {% if stats %}
+        <h2>Most Frequent Times of Travel</h2>
+        <p>Most common month: {{ stats.most_common_month }}</p>
+        <p>Most common day: {{ stats.most_common_day }}</p>
+        <p>Most common hour: {{ stats.most_common_hour }}</p>
+    {% else %}
+        <p>No data available for the selected filters.</p>
+    {% endif %}
+    {% if plots.month %}
+        <h2>Distribution of Months</h2>
+        <img src="data:image/png;base64,{{ plots.month }}" alt="Month Distribution">
+    {% endif %}
+    {% if plots.day %}
+        <h2>Distribution of Days</h2>
+        <img src="data:image/png;base64,{{ plots.day }}" alt="Day Distribution">
+    {% endif %}
+    {% if plots.hour %}
+        <h2>Distribution of Start Hours</h2>
+        <img src="data:image/png;base64,{{ plots.hour }}" alt="Hour Distribution">
+    {% endif %}
+    <a href="/">Go Back</a>
+</body>
+</html>

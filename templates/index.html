@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bikeshare Data Analysis</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1>Bikeshare Data Analysis</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Resturt</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="container">
+        <div class="content">
+            <div class="form-and-image-container">
+                <div class="form-container">
+                    <h2>Filter Results</h2>
+                    <form method="post">
+                        <label for="city">City:</label>
+                        <select name="city" id="city">
+                            <option value="chicago">Chicago</option>
+                            <option value="new york city">New York City</option>
+                            <option value="washington">Washington</option>
+                        </select><br>
+                        <label for="month">Month:</label>
+                        <select name="month" id="month">
+                            <option value="all">All</option>
+                            <option value="january">January</option>
+                            <option value="february">February</option>
+                            <option value="march">March</option>
+                            <option value="april">April</option>
+                            <option value="may">May</option>
+                            <option value="june">June</option>
+                        </select><br>
+                        <label for="day">Day:</label>
+                        <select name="day" id="day">
+                            <option value="all">All</option>
+                            <option value="monday">Monday</option>
+                            <option value="tuesday">Tuesday</option>
+                            <option value="wednesday">Wednesday</option>
+                            <option value="thursday">Thursday</option>
+                            <option value="friday">Friday</option>
+                            <option value="saturday">Saturday</option>
+                            <option value="sunday">Sunday</option>
+                        </select><br>
+                        <input type="submit" value="Submit">
+                    </form>
+
+                    {% if stats %}
+                    <h3>Statistics</h3>
+                    <div class="statistics-container">
+                        <img src="{{ url_for('static', filename='statstics.jpg') }}" alt="Divvy Bike">
+                        <table class="stats-table">
+                            <tr>
+                                <td><strong>Most common month:</strong></td>
+                                <td>{{ stats['most_common_month'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Most common day:</strong></td>
+                                <td>{{ stats['most_common_day'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Most common hour:</strong></td>
+                                <td>{{ stats['most_common_hour'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Most common start station:</strong></td>
+                                <td>{{ stats['common_start_station'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Most common end station:</strong></td>
+                                <td>{{ stats['common_end_station'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Most frequent trip:</strong></td>
+                                <td>{{ stats['common_trip'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total trip duration:</strong></td>
+                                <td>{{ stats['total_duration'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Average trip duration:</strong></td>
+                                <td>{{ stats['average_duration'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>User types:</strong></td>
+                                <td>
+                                    <ul>
+                                        {% for user_type, count in stats['user_types'].items() %}
+                                            <li>{{ user_type }}: {{ count }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                            {% if 'gender_counts' in stats %}
+                            <tr>
+                                <td><strong>Gender counts:</strong></td>
+                                <td>
+                                    <ul>
+                                        {% for gender, count in stats['gender_counts'].items() %}
+                                            <li>{{ gender }}: {{ count }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                            {% endif %}
+                            {% if 'earliest_year' in stats %}
+                            <tr>
+                                <td><strong>Earliest birth year:</strong></td>
+                                <td>{{ stats['earliest_year'] }}</td>
+                            </tr>
+                            {% endif %}
+                            {% if 'most_recent_year' in stats %}
+                            <tr>
+                                <td><strong>Most recent birth year:</strong></td>
+                                <td>{{ stats['most_recent_year'] }}</td>
+                            </tr>
+                            {% endif %}
+                            {% if 'common_year' in stats %}
+                            <tr>
+                                <td><strong>Most common birth year:</strong></td>
+                                <td>{{ stats['common_year'] }}</td>
+                            </tr>
+                            {% endif %}
+                        </table>
+                    </div>
+                    {% endif %}
+
+                    {% if plot_url %}
+                    <img src="{{ url_for('static', filename='plot.png') }}" alt="Statistics Plot">
+                    {% endif %}
+                </div>
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='divvy.jpg') }}" alt="Divvy Bike">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Bikeshare Data Analysis</p>
+    </footer>
+</body>
+</html>
