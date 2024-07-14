@@ -11,13 +11,13 @@ def user_stats(df):
 
     # Display counts of gender
     if 'Gender' in df:
-        stats['gender'] = df['Gender'].value_counts().to_dict()
+        stats['gender_counts']= df['Gender'].value_counts().to_dict()
 
     # Display earliest, most recent, and most common year of birth
     if 'Birth Year' in df:
         stats['earliest_year'] = int(df['Birth Year'].min())
         stats['most_recent_year'] = int(df['Birth Year'].max())
-        stats['most_common_year'] = int(df['Birth Year'].mode()[0])
+        stats['common_year'] = int(df['Birth Year'].mode()[0])
         
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)

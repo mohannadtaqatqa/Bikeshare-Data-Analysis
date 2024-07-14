@@ -14,7 +14,7 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="/">Resturt</a></li>
+                    <li><a href="/">Restart</a></li>
                 </ul>
             </nav>
         </div>
@@ -53,9 +53,30 @@
                             <option value="saturday">Saturday</option>
                             <option value="sunday">Sunday</option>
                         </select><br>
+                        <label for="count">Do you want to check the first 5 rows of the dataset related to the chosen city?</label>
+                        <select name="count" id="count">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select><br>
+                        <input type="hidden" name="start_loc" value="{{ start_loc }}">
                         <input type="submit" value="Submit">
                     </form>
-
+                    {% if data_html %}
+                    <h2>Raw Data</h2>
+                    <div class="data-table">
+                        {{ data_html | safe }}
+                    </div>
+                    {% if has_more_data %}
+                    <form method="post">
+                        <input type="hidden" name="city" value="{{ request.form.city }}">
+                        <input type="hidden" name="month" value="{{ request.form.month }}">
+                        <input type="hidden" name="day" value="{{ request.form.day }}">
+                        <input type="hidden" name="count" value="yes">
+                        <input type="hidden" name="start_loc" value="{{ start_loc }}">
+                        <button type="submit">Show next 5 rows</button>
+                    </form>
+                    {% endif %}
+                    {% endif %}
                     {% if stats %}
                     <h3>Statistics</h3>
                     <div class="statistics-container">
@@ -145,6 +166,8 @@
                     <img src="{{ url_for('static', filename='divvy.jpg') }}" alt="Divvy Bike">
                 </div>
             </div>
+
+          
         </div>
     </section>
 
