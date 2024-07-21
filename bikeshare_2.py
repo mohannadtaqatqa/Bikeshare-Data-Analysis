@@ -49,6 +49,7 @@ def main():
         }
         
         plot_path = generate_plot(df)
+        # create plot_url
         plot_url = 'static/plot.png'
         
     return render_template('index.html', stats=stats, plot_url=plot_url, data_html=data_html, start_loc=start_loc, has_more_data=has_more_data)
